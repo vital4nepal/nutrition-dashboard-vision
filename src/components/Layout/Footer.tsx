@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import sidartLogo from '../../nutrition_logo333.png';
-import { Mail, Phone, MapPin, FileText, BookOpen, FileSpreadsheet } from 'lucide-react';
+import { Mail, MapPin, FileText, FileSpreadsheet } from 'lucide-react';
 
 const Footer = () => {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/output', label: 'Output Analysis' },
     { path: '/impact', label: 'Impact Analysis' },
+    { path: '/n4g-dashboard', label: 'N4G Dashboard' },
     { path: '/profile', label: 'Profile' },
+    { path: '/data-import', label: 'Import Data' },
     { path: '/about', label: 'About Us' },
   ];
 
@@ -63,10 +65,6 @@ const Footer = () => {
                 <span className="break-all">nutfellowship@gmail.com</span>
               </li>
               <li className="flex items-center text-sm text-gray-600">
-                <Phone className="h-4 w-4 mr-2 text-[#22C55E] flex-shrink-0" />
-                <span>+977-1-4XXXXXX</span>
-              </li>
-              <li className="flex items-center text-sm text-gray-600">
                 <MapPin className="h-4 w-4 mr-2 text-[#22C55E] flex-shrink-0" />
                 <span>Kathmandu, Nepal</span>
               </li>
@@ -95,16 +93,6 @@ const Footer = () => {
                 >
                   <FileSpreadsheet className="h-4 w-4 mr-2 group-hover:text-[#22C55E] transition-colors" />
                   <span>Data Guidelines</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/technical-specs"
-                  onClick={handleClick}
-                  className="flex items-center text-sm text-gray-600 hover:text-[#22C55E] transition-colors group"
-                >
-                  <BookOpen className="h-4 w-4 mr-2 group-hover:text-[#22C55E] transition-colors" />
-                  <span>Methodology Guide</span>
                 </Link>
               </li>
             </ul>
