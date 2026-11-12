@@ -27,23 +27,32 @@ import Modal from '@/components/ui/Modal';
 import { whaTargetsInfo, indicatorDetailsInfo, remarksInfo } from '../data/infoContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-const ProgressBar = ({ current, target, label }: { current: number; target: number; label: string }) => {
-  const percentage = Math.min((current / target) * 100, 100);
-  
+const START_YEAR = historicalData.stunting[0].year;
+
+// Share of the distance from the start value to the target that is covered.
+// The sign of (target - start) handles both lower-is-better and higher-is-better.
+const progressShare = (start: number, current: number, target: number) =>
+  Math.min(Math.max(((current - start) / (target - start)) * 100, 0), 100);
+
+const ProgressBar = ({ start, current, target }: { start: number; current: number; target: number }) => {
+  const percentage = progressShare(start, current, target);
+
   return (
-    <div className="space-y-2">
-      <div className="flex justify-between text-sm">
-        <span className="font-medium">{label}</span>
-        <span>{current}%</span>
-      </div>
-      <div className="h-4 bg-gray-200 rounded-full">
+    <div className="space-y-3">
+      <p className="text-sm">
+        <span className="font-semibold">{Math.round(percentage)}%</span> of the way from the {START_YEAR} value to the 2030 target
+      </p>
+      <div className="relative h-4 bg-gray-200 rounded-full">
         <div
           className="h-full bg-primary rounded-full transition-all duration-500"
           style={{ width: `${percentage}%` }}
         />
+        <div className="absolute -top-1 -bottom-1 right-0 w-0.5 bg-gray-700" aria-hidden="true" />
       </div>
-      <div className="text-xs text-gray-500">
-        Target: {target}%
+      <div className="flex justify-between text-sm text-gray-600">
+        <span>{START_YEAR}: {start}%</span>
+        <span className="font-medium text-gray-900">Now: {current}%</span>
+        <span>Target 2030: {target}%</span>
       </div>
     </div>
   );
@@ -56,14 +65,13 @@ const Impact = () => {
   const isMobile = useIsMobile();
 
   const getProgressData = (tab: string) => {
-    const mapping: { [key: string]: { current: number; target: number; label: string } } = {
-      stunting: { current: 24.7, target: 22.44, label: 'Stunting Reduction' },
-      wasting: { current: 10.4, target: 5.0, label: 'Wasting Reduction' },
-      anemia: { current: 35.0, target: 21.0, label: 'Anemia Reduction' },
-      breastfeeding: { current: 56.0, target: 90.0, label: 'Exclusive Breastfeeding' },
-    };
-    return mapping[tab] || mapping.stunting;
+    const row = whaTargets.find((t) => t.indicator.toLowerCase() === tab) ?? whaTargets[0];
+    const series = historicalData[row.indicator.toLowerCase() as keyof typeof historicalData];
+    return { start: series[0].value, current: row.current, target: row.target2030 };
   };
+
+  const offTrack = whaTargets.filter((t) => t.status !== 'On Track');
+  const onTrack = whaTargets.filter((t) => t.status === 'On Track');
 
   const handleDownloadReport = () => {
     generateReport({
@@ -154,9 +162,7 @@ const Impact = () => {
                     <h3 className="text-lg font-semibold mb-4">Current Progress</h3>
                     <div className="mt-8">
                       <ProgressBar
-                        current={getProgressData(tab).current}
-                        target={getProgressData(tab).target}
-                        label="Progress"
+                        {...getProgressData(tab)}
                       />
                     </div>
                   </div>
@@ -186,9 +192,13 @@ const Impact = () => {
             <h2 className="text-xl font-semibold">Remarks</h2>
           </div>
           <ul className="list-disc list-inside space-y-2 text-gray-600">
-            <li>All indicators show gradual improvement over the past 5 years</li>
-            <li>Exclusive breastfeeding rates show the most significant positive trend</li>
-            <li>Additional interventions needed to accelerate progress towards 2030 targets</li>
+            <li>All four indicators have moved toward their 2030 targets since {START_YEAR}</li>
+            <li>On Track: {onTrack.map((t) => t.indicator).join(', ')}</li>
+            {offTrack.map((t) => (
+              <li key={t.indicator}>
+                Off Track: {t.indicator} annual rate is {t.annualReduction}%, required rate is {t.requiredReduction}%
+              </li>
+            ))}
           </ul>
         </section>
       </div>
