@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { 
   Select,
   SelectContent,
@@ -41,6 +42,7 @@ const indicators = [
 const COLORS = ['#22C55E', '#E5E7EB'];
 
 const Output = () => {
+  usePageTitle('Output Analysis');
   const [selectedIndicator, setSelectedIndicator] = useState(indicators[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');

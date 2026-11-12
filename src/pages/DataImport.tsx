@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
@@ -20,6 +21,7 @@ import { useData } from '@/context/DataContext';
 import { downloadTestData } from '@/utils/testDataGenerator';
 
 const DataImport = () => {
+  usePageTitle('Data Import');
   const { toast } = useToast();
   const { importData } = useData();
   const [activeTab, setActiveTab] = useState('upload');

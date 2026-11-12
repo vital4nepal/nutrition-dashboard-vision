@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Globe, Instagram, Linkedin, Mail, Twitter } from 'lucide-react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 
 const EMAIL = 'nutfellowship@gmail.com';
 
@@ -16,6 +17,7 @@ const linkClass =
   'flex items-center gap-3 min-h-[44px] text-base text-gray-700 hover:text-primary transition-colors';
 
 const Chat = () => {
+  usePageTitle('Chat with Us');
   return (
     <PageWrapper title="Contact Us">
       <div className="max-w-xl space-y-6">

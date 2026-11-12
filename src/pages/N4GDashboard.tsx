@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, ExternalLink, ChevronDown, ChevronUp, FileText, ArrowLeft, X } from 'lucide-react';
@@ -198,6 +199,7 @@ const BAR_COLORS = {
 };
 
 const N4GDashboard = () => {
+  usePageTitle('Tracking Nutrition for Growth (N4G) commitments of Nepal');
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({

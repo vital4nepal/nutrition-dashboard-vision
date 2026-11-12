@@ -1,5 +1,6 @@
 import React from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { Mail, MapPin } from 'lucide-react';
 
 const leadTeam = [
@@ -28,6 +29,7 @@ const TeamMember = ({ name, role }: { name: string; role: string }) => (
 );
 
 const About = () => {
+  usePageTitle('About Us');
   return (
     <PageWrapper title="About Us">
       <div className="space-y-8">
