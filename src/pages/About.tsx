@@ -1,6 +1,6 @@
 import React from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 
 const About = () => {
   return (
@@ -83,19 +83,12 @@ const About = () => {
         {/* Contact Section */}
         <section className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-xl font-semibold text-[#22C55E] mb-4">Contact Us</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-center space-x-3">
               <Mail className="text-[#22C55E]" />
               <div>
                 <h3 className="font-semibold">Email</h3>
                 <p className="text-gray-600">nutfellowship@gmail.com</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Phone className="text-[#22C55E]" />
-              <div>
-                <h3 className="font-semibold">Phone</h3>
-                <p className="text-gray-600">+977-1-4XXXXXX</p>
               </div>
             </div>
             <div className="flex items-center space-x-3">
