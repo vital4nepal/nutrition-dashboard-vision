@@ -69,8 +69,8 @@ const OutputChart = ({ data, title, dataKey = "name", barSize = 50 }: OutputChar
           />
           <YAxis 
             tick={{ fontSize: isMobile ? 10 : 12 }}
-            width={isMobile ? 30 : 60}
-            tickFormatter={(value) => isMobile ? `${value}` : value.toLocaleString()}
+            width={isMobile ? 48 : 60}
+            tickFormatter={(value) => value.toLocaleString()}
             tickCount={isMobile ? 4 : 5}
           />
           <Tooltip content={<CustomTooltip />} />
@@ -143,8 +143,8 @@ const LollipopChart = ({ data, title }: OutputChartProps) => {
           />
           <YAxis 
             tick={{ fontSize: isMobile ? 10 : 12 }}
-            width={isMobile ? 30 : 60}
-            tickFormatter={(value) => isMobile ? `${value}` : value.toLocaleString()}
+            width={isMobile ? 48 : 60}
+            tickFormatter={(value) => value.toLocaleString()}
             tickCount={isMobile ? 4 : 5}
           />
           <Tooltip content={<CustomTooltip />} />

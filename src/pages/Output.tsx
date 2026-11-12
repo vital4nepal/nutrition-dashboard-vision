@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import OutputChart from '@/components/Dashboard/OutputChart';
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, Upload } from "lucide-react";
+import { AlertCircle, CheckCircle2, Upload, XCircle } from "lucide-react";
 import { 
   LineChart, 
   Line, 
@@ -115,15 +115,20 @@ const Output = () => {
           </div>
           <div className="h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={cumulativeData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis 
+              <LineChart data={cumulativeData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f5f5f5" />
+                <XAxis
                   dataKey="month"
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
                   hide={window.innerWidth < 640}
                 />
-                <YAxis />
-                <Tooltip formatter={(value) => `${value}`}
+                <YAxis
+                  tick={{ fontSize: window.innerWidth < 768 ? 10 : 12 }}
+                  width={window.innerWidth < 768 ? 48 : 60}
+                  tickFormatter={(value) => value.toLocaleString()}
+                  tickCount={window.innerWidth < 768 ? 4 : 5}
+                />
+                <Tooltip formatter={(value: number) => value.toLocaleString()}
   labelFormatter={(monthLabel) => `${monthLabel}`} />
                 <Line 
                   type="monotone" 
@@ -151,10 +156,12 @@ const Output = () => {
                     data={pieData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
+                    innerRadius={75}
+                    outerRadius={95}
+                    startAngle={90}
+                    endAngle={-270}
                     dataKey="value"
+                    stroke="none"
                   >
                     {pieData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index]} />
@@ -164,8 +171,8 @@ const Output = () => {
                 </PieChart>
               </ResponsiveContainer>
               {/* Center text in pie chart */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-3xl font-bold text-[#22C55E]">{percentageReached}%</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span className="text-2xl font-bold text-gray-900">{percentageReached}%</span>
                 <span className="text-sm text-gray-500">Complete</span>
               </div>
             </div>
@@ -197,9 +204,10 @@ const Output = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="text-sm font-medium text-gray-500 mb-1">Current Status</h4>
-                    <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                      isOnTrack ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-md border text-sm font-medium ${
+                      isOnTrack ? 'bg-green-50 border-green-600 text-green-800' : 'bg-red-50 border-red-600 text-red-800'
                     }`}>
+                      {isOnTrack ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
                       {isOnTrack ? 'On Track' : 'Off Track'}
                     </div>
                   </div>
