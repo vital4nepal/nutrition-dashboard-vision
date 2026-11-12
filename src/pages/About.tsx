@@ -2,6 +2,31 @@ import React from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
 import { Mail, MapPin } from 'lucide-react';
 
+const leadTeam = [
+  { name: 'Pragya', role: 'Project Lead' },
+  { name: 'Ishan', role: 'Lead Developer' },
+  { name: 'Raju', role: 'Advisor' },
+];
+
+const devTeam = [
+  { name: 'Binam', role: 'Developer' },
+  { name: 'Sonu', role: 'Developer' },
+];
+
+// No photos exist, so the initial stands in. The name below carries the meaning.
+const TeamMember = ({ name, role }: { name: string; role: string }) => (
+  <div className="text-center">
+    <div
+      aria-hidden="true"
+      className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center bg-secondary text-secondary-foreground text-2xl font-semibold"
+    >
+      {name.charAt(0)}
+    </div>
+    <h3 className="font-semibold">{name}</h3>
+    <p className="text-gray-600">{role}</p>
+  </div>
+);
+
 const About = () => {
   return (
     <PageWrapper title="About Us">
@@ -48,35 +73,16 @@ const About = () => {
         <section className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-xl font-semibold text-[#22C55E] mb-4">Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4"></div>
-              <h3 className="font-semibold">Pragya</h3>
-              <p className="text-gray-600">Project Lead</p>
-            </div>
-            <div className="text-center">
-              <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4"></div>
-              <h3 className="font-semibold">Ishan</h3>
-              <p className="text-gray-600">Lead Developer</p>
-            </div>
-            <div className="text-center">
-              <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4"></div>
-              <h3 className="font-semibold">Raju</h3>
-              <p className="text-gray-600">Advisor</p>
-            </div>
+            {leadTeam.map((member) => (
+              <TeamMember key={member.name} {...member} />
+            ))}
           </div>
-          
+
           <h3 className="text-lg font-semibold text-gray-700 mt-8 mb-4">Development Team</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4"></div>
-              <h3 className="font-semibold">Binam</h3>
-              <p className="text-gray-600">Developer</p>
-            </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4"></div>
-              <h3 className="font-semibold">Sonu</h3>
-              <p className="text-gray-600">Developer</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {devTeam.map((member) => (
+              <TeamMember key={member.name} {...member} />
+            ))}
           </div>
         </section>
 
