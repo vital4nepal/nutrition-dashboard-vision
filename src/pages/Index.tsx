@@ -1,16 +1,16 @@
 import React from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
-import OutputChart from '@/components/Dashboard/OutputChart';
+import IndicatorChart from '@/components/Dashboard/IndicatorChart';
+import { getMonthlySeries } from '@/data/monthlyIndicators';
 import MetricCard from '@/components/Dashboard/MetricCard';
 import ProgressBar from '@/components/Dashboard/ProgressBar';
-import { Download, Info, TrendingUp, TrendingDown, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Download, Info, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { generateReport } from '@/utils/reportGenerator';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import sidartLogo from '../nutrition_logo333.png';
 import Modal from '@/components/ui/Modal';
 import { childNutritionInfo, maternalNutritionInfo } from '@/data/infoData';
-import LollipopChart from '@/components/Dashboard/OutputChart';
 import { useData } from '@/context/DataContext';
 
 const options = {
@@ -112,67 +112,17 @@ const Index = () => {
           {/* Child Nutrition Indicators - Full Width, Side by Side Charts */}
           <section className="bg-white rounded-lg shadow-sm">
             <div className="flex items-center mb-4">
-              <h2 className="text-lg font-semibold text-[#22C55E]">
-            Child Nutrition Indicators
-          </h2>
-              <Info className="text-[#22C55E] cursor-pointer ml-2" onClick={handleChildInfoClick} />
+              <h2 className="text-xl font-semibold text-primary">
+                Child Nutrition Indicators
+              </h2>
+              <Info className="text-primary cursor-pointer ml-2" onClick={handleChildInfoClick} />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Weight & Height Measured */}
-              <div className="bg-[#F8FFF3] p-3 rounded-lg border border-[#E5F2E5]">
-                <h3 className="text-sm font-medium text-gray-700 mb-0 flex items-center">
-                  <TrendingUp className="h-4 w-4 text-[#22C55E] mr-1" />
-                  Weight & Height Measured
-                </h3>
-                <div className="h-[220px]">
-                  <OutputChart 
-                    data={[childrenData[0]]}
-                    title="Weight & Height Measured"
-                    xAxisLabel="Month"
-                    yAxisLabel="Value"
-                    dataKey="name"
-                    barSize={50}
-                  />
-                </div>
-              </div>
-
-              {/* Treated for Malnutrition */}
-              <div className="bg-[#F8FFF3] p-3 rounded-lg border border-[#E5F2E5]">
-                <h3 className="text-sm font-medium text-gray-700 mb-0 flex items-center">
-                  <TrendingDown className="h-4 w-4 text-amber-500 mr-1" />
-                  Treated for Malnutrition
-                </h3>
-                <div className="h-[220px]">
-                  <OutputChart 
-                    data={[childrenData[2]]}
-                    title="Treated for Malnutrition"
-                    xAxisLabel="Month"
-                    yAxisLabel="Value"
-                    dataKey="name"
-                    barSize={50}
-                  />
-                </div>
-              </div>
-
-              {/* Counseling Sessions */}
-              <div className="bg-[#F8FFF3] p-3 rounded-lg border border-[#E5F2E5]">
-                <h3 className="text-sm font-medium text-gray-700 mb-0 flex items-center">
-                  <TrendingUp className="h-4 w-4 text-[#22C55E] mr-1" />
-                  Counseling Sessions
-                </h3>
-                <div className="h-[220px]">
-              <OutputChart 
-                    data={[childrenData[1]]}
-                    title="Counseling Sessions"
-                xAxisLabel="Month"
-                yAxisLabel="Value"
-                    dataKey="name"
-                    barSize={50}
-              />
-                </div>
+              <IndicatorChart title="Weight & Height Measured" data={getMonthlySeries('Weight & Height Measured')} />
+              <IndicatorChart title="Treated for Malnutrition" data={getMonthlySeries('Treated for Malnutrition')} />
+              <IndicatorChart title="Counseling Sessions" data={getMonthlySeries('Counseling Sessions')} />
             </div>
-          </div>
         </section>
 
           {/* Maternal + Monthly Side by Side */}
@@ -180,50 +130,43 @@ const Index = () => {
             {/* Maternal Nutrition Indicators - 8 columns */}
             <section className="md:col-span-8 bg-white p-4 rounded-lg shadow-sm">
               <div className="flex items-center mb-4">
-                <h2 className="text-lg font-semibold text-[#EF4444]">
-            Maternal Nutrition Indicators
-          </h2>
-                <Info className="text-[#EF4444] cursor-pointer ml-2" onClick={handleMaternalInfoClick} />
+                <h2 className="text-xl font-semibold text-primary">
+                  Maternal Nutrition Indicators
+                </h2>
+                <Info className="text-primary cursor-pointer ml-2" onClick={handleMaternalInfoClick} />
               </div>
-              
-              <div className="h-[300px] bg-white p-3 rounded-lg border border-[#FECACA] mb-3">
-                <LollipopChart
-                data={maternalData}
-                title="Maternal Nutrition Outputs"
-                xAxisLabel="Month"
-                yAxisLabel="Value"
-                  dataKey="name"
-                />
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <IndicatorChart title="IFA During ANC" data={getMonthlySeries('IFA During ANC')} />
+                <IndicatorChart title="Nutrition Counseling" data={getMonthlySeries('Nutrition Counseling')} />
+                <IndicatorChart title="Weight Monitoring" data={getMonthlySeries('Weight Monitoring')} />
               </div>
-              
-              {/* Additional maternal stats */}
-           
             </section>
 
             {/* Monthly Highlights - 4 columns */}
             <section className="md:col-span-4 bg-white p-4 rounded-lg shadow-sm">
-              <h2 className="text-lg font-semibold text-[#6366F1] mb-4">Monthly Highlights</h2>
-              
-              <div className="bg-[#F5F7FF] p-3 rounded-lg border border-[#E0E7FF] mb-4">
+              <h2 className="text-xl font-semibold text-primary mb-4">Monthly Highlights</h2>
+
+              <div className="bg-muted p-3 rounded-lg border border-border mb-4">
                 <ul className="space-y-2 text-gray-600 text-sm">
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 text-[#6366F1] mr-2 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>March 2023 data now available</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 text-[#6366F1] mr-2 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Q1 2023 nutrition indicators updated</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 text-[#6366F1] mr-2 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Coverage expanded to 77 districts</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 text-[#6366F1] mr-2 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Enhanced district-level reporting system</span>
                   </li>
                   <li className="flex items-start">
-                    <CheckCircle2 className="h-4 w-4 text-[#6366F1] mr-2 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Improved data quality measures in place</span>
                   </li>
                 </ul>
@@ -237,7 +180,7 @@ const Index = () => {
                     <span>85%</span>
                   </div>
                   <div className="h-2 bg-gray-200 rounded-full">
-                    <div className="h-full bg-[#6366F1] rounded-full" style={{ width: '85%' }}></div>
+                    <div className="h-full bg-primary rounded-full" style={{ width: '85%' }}></div>
                   </div>
                 </div>
                 
@@ -247,7 +190,7 @@ const Index = () => {
                     <span>62%</span>
                   </div>
                   <div className="h-2 bg-gray-200 rounded-full">
-                    <div className="h-full bg-[#6366F1] rounded-full" style={{ width: '62%' }}></div>
+                    <div className="h-full bg-primary rounded-full" style={{ width: '62%' }}></div>
                   </div>
                 </div>
               </div>
