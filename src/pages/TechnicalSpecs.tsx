@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/table";
 
 const TechnicalSpecs = () => {
+  usePageTitle('Technical Specifications');
   useEffect(() => {
     // Scroll to top smoothly when component mounts
     window.scrollTo({ top: 0, behavior: 'smooth' });

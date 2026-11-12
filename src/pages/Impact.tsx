@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
@@ -50,6 +51,7 @@ const ProgressBar = ({ current, target, label }: { current: number; target: numb
 };
 
 const Impact = () => {
+  usePageTitle('Impact Analysis');
   const [activeTab, setActiveTab] = useState('stunting');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');

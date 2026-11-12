@@ -1,5 +1,6 @@
 import React from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import OutputChart from '@/components/Dashboard/OutputChart';
 import MetricCard from '@/components/Dashboard/MetricCard';
 import ProgressBar from '@/components/Dashboard/ProgressBar';
@@ -36,6 +37,7 @@ const options = {
 };
 
 const Index = () => {
+  usePageTitle('Dashboard Home');
   const { 
     childrenData, 
     maternalData, 

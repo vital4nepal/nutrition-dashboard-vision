@@ -1,8 +1,10 @@
 import React from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import logo from '../nutrition_logo333.png';
 
 const Chat = () => {
+  usePageTitle('Chat with Us');
   return (
     <PageWrapper title="Chat with Us">
     {/* End of Selection */}

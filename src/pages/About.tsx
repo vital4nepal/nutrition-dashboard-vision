@@ -1,8 +1,10 @@
 import React from 'react';
 import PageWrapper from '@/components/Layout/PageWrapper';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 const About = () => {
+  usePageTitle('About Us');
   return (
     <PageWrapper title="About Us">
       <div className="space-y-8">

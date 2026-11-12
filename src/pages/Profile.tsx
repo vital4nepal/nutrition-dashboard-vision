@@ -1,6 +1,7 @@
 import React, { useState, Suspense } from "react";
 import { lazy } from "react";
 import PageWrapper from "@/components/Layout/PageWrapper";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { Button } from "@/components/ui/button";
 import { Mail, Download, TrendingUp } from "lucide-react";
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
@@ -173,6 +174,7 @@ const WhaTargetProfile = ({ indicator }) => {
 };
 
 const Profile = () => {
+  usePageTitle("Profile");
   const [selectedRegion, setSelectedRegion] = useState(regions[0]);
   const [activeWhaTab, setActiveWhaTab] = useState("stunting");
 
