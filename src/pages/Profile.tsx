@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { generateReport } from "@/utils/reportGenerator";
 import { regions } from '../data/regionsData';
 import { whaTargets } from '../data/whaTargets';
+import { historicalData } from '../data/historicalData';
 import MetricCard from "@/components/Dashboard/MetricCard";
 import OutputChart from "@/components/Dashboard/OutputChart";
 import MapLegend from "@/assets/maps/MapLegend";
@@ -58,23 +59,18 @@ const RegionVisualization = ({ region }) => {
 const WhaTargetProfile = ({ indicator }) => {
   const targetData = whaTargets.find(target => target.indicator.toLowerCase() === indicator.toLowerCase());
   
-  // Historical data placeholder (would be replaced with actual data)
-  const historicalData = [
-    { name: '2018', value: targetData.current - targetData.annualReduction * 4 },
-    { name: '2019', value: targetData.current - targetData.annualReduction * 3 },
-    { name: '2020', value: targetData.current - targetData.annualReduction * 2 },
-    { name: '2021', value: targetData.current - targetData.annualReduction },
-    { name: '2022', value: targetData.current },
-  ];
+  // Same series as the Impact page, so both pages show one trend.
+  const trendData = historicalData[indicator.toLowerCase() as keyof typeof historicalData].map(
+    ({ year, value }) => ({ name: String(year), value })
+  );
 
-  // Projection data placeholder
-  const projectionData = [
-    { name: '2022', value: targetData.current },
-    { name: '2024', value: targetData.current - targetData.annualReduction * 2 },
-    { name: '2026', value: targetData.current - targetData.annualReduction * 4 },
-    { name: '2028', value: targetData.current - targetData.annualReduction * 6 },
-    { name: '2030', value: targetData.target2030 },
-  ];
+  // Move from the current value by the annual rate for each year after 2022.
+  // The rate is a drop, except for an indicator whose target is above its current value.
+  const direction = targetData.target2030 < targetData.current ? -1 : 1;
+  const projectionData = [2022, 2024, 2026, 2028, 2030].map((year) => ({
+    name: String(year),
+    value: Number((targetData.current + direction * targetData.annualReduction * (year - 2022)).toFixed(1)),
+  }));
 
   return (
     <div className="space-y-6">
@@ -110,7 +106,7 @@ const WhaTargetProfile = ({ indicator }) => {
           <h3 className="text-lg font-semibold mb-4">Historical Trend</h3>
           <div className="h-64">
             <OutputChart 
-              data={historicalData} 
+              data={trendData}
               title="Historical Data" 
               xAxisLabel="Year" 
               yAxisLabel="Value (%)"
@@ -122,8 +118,10 @@ const WhaTargetProfile = ({ indicator }) => {
           <h3 className="text-lg font-semibold mb-4">Projection to 2030</h3>
           <div className="h-64">
             <OutputChart 
-              data={projectionData} 
-              title="Projected Data" 
+              data={projectionData}
+              referenceValue={targetData.target2030}
+              referenceLabel="2030 target"
+              title="Projected Data"
               xAxisLabel="Year" 
               yAxisLabel="Value (%)"
             />

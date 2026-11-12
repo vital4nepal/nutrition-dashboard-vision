@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine } from 'recharts';
 import { Line, Dot } from 'recharts';
 import { LineChart } from 'recharts';
 
@@ -13,9 +13,11 @@ interface OutputChartProps {
   yAxisLabel: string;
   dataKey?: string;
   barSize?: number;
+  referenceValue?: number;
+  referenceLabel?: string;
 }
 
-const OutputChart = ({ data, title, dataKey = "name", barSize = 50 }: OutputChartProps) => {
+const OutputChart = ({ data, title, dataKey = "name", barSize = 50, referenceValue, referenceLabel }: OutputChartProps) => {
   const [isMobile, setIsMobile] = useState(false);
   
   // Detect mobile screens
@@ -69,13 +71,22 @@ const OutputChart = ({ data, title, dataKey = "name", barSize = 50 }: OutputChar
           />
           <YAxis 
             tick={{ fontSize: isMobile ? 10 : 12 }}
-            width={isMobile ? 30 : 60}
-            tickFormatter={(value) => isMobile ? `${value}` : value.toLocaleString()}
+            width={isMobile ? 48 : 60}
+            tickFormatter={(value) => value.toLocaleString()}
             tickCount={isMobile ? 4 : 5}
           />
           <Tooltip content={<CustomTooltip />} />
-         
-          <Bar 
+          {referenceValue !== undefined && (
+            <ReferenceLine
+              y={referenceValue}
+              stroke="#EF4444"
+              strokeDasharray="6 4"
+              ifOverflow="extendDomain"
+              label={{ value: `${referenceLabel ?? 'Target'}: ${referenceValue}%`, position: 'insideTopRight', fontSize: isMobile ? 10 : 12, fill: '#EF4444' }}
+            />
+          )}
+
+          <Bar
             dataKey="value" 
             fill="#22C55E"
             radius={[4, 4, 0, 0]}
@@ -143,8 +154,8 @@ const LollipopChart = ({ data, title }: OutputChartProps) => {
           />
           <YAxis 
             tick={{ fontSize: isMobile ? 10 : 12 }}
-            width={isMobile ? 30 : 60}
-            tickFormatter={(value) => isMobile ? `${value}` : value.toLocaleString()}
+            width={isMobile ? 48 : 60}
+            tickFormatter={(value) => value.toLocaleString()}
             tickCount={isMobile ? 4 : 5}
           />
           <Tooltip content={<CustomTooltip />} />

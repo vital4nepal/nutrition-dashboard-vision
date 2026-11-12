@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import PageWrapper from '@/components/Layout/PageWrapper';
 import { usePageTitle } from '@/hooks/usePageTitle';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -26,6 +26,7 @@ const DataImport = () => {
   const { importData } = useData();
   const [activeTab, setActiveTab] = useState('upload');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState('');
   const [pendingData, setPendingData] = useState<NutritionDataRow[]>([]);
   const [approvedData, setApprovedData] = useState<NutritionDataRow[]>([]);
   const [rejectedData, setRejectedData] = useState<NutritionDataRow[]>([]);
@@ -262,14 +263,41 @@ const DataImport = () => {
             
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row gap-4">
-                <Input 
-                  type="file" 
-                  accept=".xlsx,.xls" 
-                  onChange={handleFileUpload} 
-                  disabled={isProcessing}
-                  className="flex-1"
-                />
-                <Button 
+                <div className="flex-1">
+                  {/* sr-only keeps the input focusable, so Enter and Space open the picker */}
+                  <input
+                    id="nutrition-file"
+                    type="file"
+                    accept=".xlsx,.xls,.csv"
+                    onChange={(e) => {
+                      setSelectedFileName(e.target.files?.[0]?.name ?? '');
+                      handleFileUpload(e);
+                    }}
+                    disabled={isProcessing}
+                    className="peer sr-only"
+                  />
+                  <label
+                    htmlFor="nutrition-file"
+                    className={cn(
+                      buttonVariants({ variant: 'default' }),
+                      'h-11 w-full cursor-pointer sm:w-auto',
+                      'peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2',
+                      'peer-disabled:pointer-events-none peer-disabled:opacity-50'
+                    )}
+                  >
+                    <Upload className="mr-2 h-4 w-4" />
+                    Choose file
+                  </label>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Accepted: Excel (.xlsx, .xls) or CSV (.csv), up to 5 MB.
+                  </p>
+                  {selectedFileName && (
+                    <p className="mt-1 text-sm font-medium text-gray-900 break-all" aria-live="polite">
+                      Selected file: {selectedFileName}
+                    </p>
+                  )}
+                </div>
+                <Button
                   variant="outline"
                   onClick={handleDownloadTemplate}
                   className="whitespace-nowrap"
@@ -316,27 +344,27 @@ const DataImport = () => {
           
           <Card className="p-6">
             <h2 className="text-xl font-semibold mb-4">Instructions</h2>
-            <div className="space-y-4 text-gray-600">
+            <div className="space-y-6 text-gray-600">
               <div>
-                <h3 className="font-medium">Required Fields:</h3>
-                <ul className="list-disc list-inside ml-4 text-sm">
+                <h3 className="mb-2 text-base font-semibold text-gray-900">Required Fields:</h3>
+                <ul className="list-disc space-y-1 pl-5 text-sm">
                   <li>month - Month of data collection (e.g., January, February)</li>
                   <li>indicator - Name of the indicator (e.g., "Children under five measured")</li>
                   <li>value - Numeric value for the indicator</li>
                 </ul>
               </div>
-              
+
               <div>
-                <h3 className="font-medium">Optional Fields:</h3>
-                <ul className="list-disc list-inside ml-4 text-sm">
+                <h3 className="mb-2 text-base font-semibold text-gray-900">Optional Fields:</h3>
+                <ul className="list-disc space-y-1 pl-5 text-sm">
                   <li>province - Province name</li>
                   <li>district - District name</li>
                 </ul>
               </div>
-              
+
               <div>
-                <h3 className="font-medium">Validation Rules:</h3>
-                <ul className="list-disc list-inside ml-4 text-sm">
+                <h3 className="mb-2 text-base font-semibold text-gray-900">Validation Rules:</h3>
+                <ul className="list-disc space-y-1 pl-5 text-sm">
                   <li>All required fields must be present</li>
                   <li>Values must be valid numbers</li>
                   <li>BMI values must be between 10 and 50</li>

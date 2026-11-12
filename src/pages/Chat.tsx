@@ -1,42 +1,46 @@
 import React from 'react';
+import { Facebook, Globe, Instagram, Linkedin, Mail, Twitter } from 'lucide-react';
 import PageWrapper from '@/components/Layout/PageWrapper';
 import { usePageTitle } from '@/hooks/usePageTitle';
-import logo from '../nutrition_logo333.png';
+
+const EMAIL = 'nutfellowship@gmail.com';
+
+const channels = [
+  { label: 'Facebook', href: 'https://www.facebook.com/nutfellowship/', Icon: Facebook },
+  { label: 'Instagram', href: 'https://www.instagram.com/nutfellowship/', Icon: Instagram },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nutfellowship/', Icon: Linkedin },
+  { label: 'X', href: 'https://x.com/nutfellowship', Icon: Twitter },
+  { label: 'Website: nutfellowship.com', href: 'https://nutfellowship.com', Icon: Globe },
+];
+
+const linkClass =
+  'flex items-center gap-3 min-h-[44px] text-base text-gray-700 hover:text-primary transition-colors';
 
 const Chat = () => {
   usePageTitle('Chat with Us');
   return (
-    <PageWrapper title="Chat with Us">
-    {/* End of Selection */}
-      <header className="flex justify-between items-center p-4 bg-white shadow-sm">
-        <img src={logo} alt="Logo" className="h-8" />
-        <div className="flex space-x-4">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600">
-            Facebook
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-400">
-            Twitter
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500">
-            Instagram
-          </a>
-        </div>
-      </header>
-      <div className="flex justify-center items-center h-screen">
-        <h1 className="text-2xl font-semibold text-gray-700">Chat with Us</h1>
+    <PageWrapper title="Contact Us">
+      <div className="max-w-xl space-y-6">
+        <p className="text-base text-gray-600">
+          There is no live chat. Send the team an email or message the Nutrition Fellowship on one of its channels.
+        </p>
+        <a href={`mailto:${EMAIL}`} className={linkClass}>
+          <Mail className="h-5 w-5 text-primary flex-shrink-0" />
+          <span className="break-all">{EMAIL}</span>
+        </a>
+        <ul>
+          {channels.map(({ label, href, Icon }) => (
+            <li key={href}>
+              <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                <Icon className="h-5 w-5 text-primary flex-shrink-0" />
+                <span>{label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-      <footer className="bg-white p-4 border-t shadow-sm">
-        <div className="text-center text-sm text-gray-500">
-          <p>© 2001-2025 LeapFrog Enterprises, Inc. All rights reserved.</p>
-          <div className="flex justify-center space-x-4 mt-2">
-            <a href="/policy" className="hover:underline">Policy</a>
-            <a href="/security" className="hover:underline">Security</a>
-            <a href="/terms" className="hover:underline">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
     </PageWrapper>
   );
 };
 
-export default Chat; 
+export default Chat;
