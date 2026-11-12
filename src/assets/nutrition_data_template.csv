@@ -1,0 +1,21 @@
+month,indicator,value,province,district,collection_point,recording_person,reporting_person,recording_method
+October,Maternal Nutrition Counselling,290,Province 1,Jhapa,Community Clinics,CHCP,CHCP,Maternal Register
+October,IFA Distribution,750,Province 1,Morang,Family Welfare Center,FWV,CHCP,MIS-3
+October,Maternal Weight Monitoring,480,Province 2,Parsa,Community Clinics,CHCP,CHCP,Maternal Register
+November,Children Under Five Measured,4650,Province 2,Bara,Home Visits,CHCP,FWA,FW Register
+November,Acute Malnutrition Treatment,270,Province 3,Kathmandu,Community Clinics,CHCP,CHCP,Maternal Register
+November,Growth Monitoring,1320,Province 3,Lalitpur,Family Welfare Center,FWV,CHCP,MIS-3
+December,Maternal Nutrition Counselling,320,Province 4,Kaski,Community Clinics,CHCP,CHCP,Maternal Register
+December,IFA Distribution,810,Province 4,Syangja,Family Welfare Center,FWV,CHCP,MIS-3
+December,Children Under Five Measured,4800,Province 5,Rupandehi,Home Visits,CHCP,FWA,FW Register
+December,Growth Monitoring,1380,Province 5,Banke,Family Welfare Center,FWV,CHCP,MIS-3
+January,Maternal Nutrition Counselling,342,Province 1,Jhapa,Community Clinics,CHCP,CHCP,Maternal Register
+January,IFA Distribution,876,Province 1,Morang,Family Welfare Center,FWV,CHCP,MIS-3
+January,Maternal Weight Monitoring,567,Province 2,Parsa,Community Clinics,CHCP,CHCP,Maternal Register
+February,Children Under Five Measured,4987,Province 2,Bara,Home Visits,CHCP,FWA,FW Register
+February,Acute Malnutrition Treatment,298,Province 3,Kathmandu,Community Clinics,CHCP,CHCP,Maternal Register
+February,Growth Monitoring,1432,Province 3,Lalitpur,Family Welfare Center,FWV,CHCP,MIS-3
+March,Maternal Nutrition Counselling,654,Province 4,Kaski,Community Clinics,CHCP,CHCP,Maternal Register
+March,IFA Distribution,2345,Province 4,Syangja,Family Welfare Center,FWV,CHCP,MIS-3
+March,Children Under Five Measured,3456,Province 5,Rupandehi,Home Visits,CHCP,FWA,FW Register
+March,Growth Monitoring,2123,Province 5,Banke,Family Welfare Center,FWV,CHCP,MIS-3 

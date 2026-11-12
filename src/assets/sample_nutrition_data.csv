@@ -1,0 +1,23 @@
+month,indicator,value,province,district,collection_point,recording_person,reporting_person,recording_method
+October,Weight & Height Measured,4620,Province 1,Jhapa,Community Clinics,CHCP,CHCP,Maternal Register
+October,Treated for Malnutrition,310,Province 1,Morang,Community Clinics,CHCP,CHCP,Maternal Register
+October,Counseling Sessions,1150,Province 2,Parsa,Family Welfare Center,FWV,CHCP,MIS-3
+November,Weight & Height Measured,4780,Province 2,Bara,Home Visits,CHCP,FWA,FW Register
+November,Treated for Malnutrition,325,Province 3,Kathmandu,Community Clinics,CHCP,CHCP,Maternal Register
+November,Counseling Sessions,1210,Province 3,Lalitpur,Family Welfare Center,FWV,CHCP,MIS-3
+December,IFA During ANC,7890,Province 4,Kaski,Community Clinics,CHCP,CHCP,Maternal Register
+December,Nutrition Counseling,2100,Province 4,Syangja,Family Welfare Center,FWV,CHCP,MIS-3
+December,Weight Monitoring,3200,Province 5,Rupandehi,Home Visits,CHCP,FWA,FW Register
+January,Weight & Height Measured,5234,Province 1,Jhapa,Community Clinics,CHCP,CHCP,Maternal Register
+January,Treated for Malnutrition,342,Province 1,Morang,Community Clinics,CHCP,CHCP,Maternal Register
+January,Counseling Sessions,1256,Province 2,Parsa,Family Welfare Center,FWV,CHCP,MIS-3
+February,Weight & Height Measured,4987,Province 2,Bara,Home Visits,CHCP,FWA,FW Register
+February,Treated for Malnutrition,298,Province 3,Kathmandu,Community Clinics,CHCP,CHCP,Maternal Register
+February,Counseling Sessions,1432,Province 3,Lalitpur,Family Welfare Center,FWV,CHCP,MIS-3
+March,IFA During ANC,8765,Province 4,Kaski,Community Clinics,CHCP,CHCP,Maternal Register
+March,Nutrition Counseling,2345,Province 4,Syangja,Family Welfare Center,FWV,CHCP,MIS-3
+March,Weight Monitoring,3456,Province 5,Rupandehi,Home Visits,CHCP,FWA,FW Register
+March,Prevalence of Stunting,24.7,Province 1,Jhapa,Survey Team,ST,ST,Survey
+March,Prevalence of Anaemia,35.0,Province 2,Bara,Survey Team,ST,ST,Survey
+March,Prevalence of Wasting,10.4,Province 3,Kathmandu,Survey Team,ST,ST,Survey
+March,Exclusive Breastfeeding,56.0,Province 4,Kaski,Survey Team,ST,ST,Survey
